@@ -23,8 +23,8 @@ public class UserController {
 	@PostMapping("/addUser")
 	public ResponseEntity<UserResponse> registerUser(@RequestBody UserRequest newUser){
 //		UserRequest user = this.userService.createUser(newUser);
-//	UserResponse response;
-///		response.setCode(TCSConstants.CODE_OK);
+//	UserResponse response = new UserResponse();
+//		response.setCode(TCSConstants.CODE_OK);
 //		response.setStatus(TCSConstants.STATUS_OK);
 //	response.setMessage(TCSConstants.USER_CREATED_MSG);
 //		response.setUser(user);
@@ -35,7 +35,7 @@ public class UserController {
 	@PutMapping("/updateUser/{userId}")
 	public ResponseEntity<UserResponse> modifyUser(@RequestBody UserRequest changedUser, @PathVariable("userId")String uid){
 //		UserRequest user = this.userService.updateUser(changedUser);
-//		UserResponse response;
+//		UserResponse response = new UserResponse();
 //		response.setCode(TCSConstants.CODE_CREATED);
 //		response.setStatus(TCSConstants.STATUS_CREATED);
 //		response.setMessage(TCSConstants.USER_UPDATED_MSG);
@@ -47,7 +47,7 @@ public class UserController {
 	@GetMapping("/getUser/{userId}")
 	public ResponseEntity<UserResponse> obtainUser( @PathVariable("userId")String uid){
 //		UserRequest user = this.userService.getUserById(uid);
-//	UserResponse response;
+//	UserResponse response = new UserResponse();
 //	response.setCode(TCSConstants.CODE_OK);
 //		response.setStatus(TCSConstants.USER_FETCHED_MSG);
 //		response.setMessage("User Fetched Successfully");
@@ -58,8 +58,8 @@ public class UserController {
 	
 	@GetMapping("/getUsers")
 	public ResponseEntity<AllUserResponse> obtainAllUsers( ){
-		List<UserRequest> usersList = this.userService.getAllUsers();
-		AllUserResponse response;
+	//	List<UserRequest> usersList = this.userService.getAllUsers();
+//		AllUserResponse response = = new AllUserResponse();
 //		response.setCode(TCSConstants.CODE_OK);
 //		response.setStatus(TCSConstants.STATUS_OK);
 //		response.setMessage(TCSConstants.ALL_USERS_FETCHED_MSG);
@@ -73,7 +73,7 @@ public class UserController {
 	@DeleteMapping("/deleteUser/{userId}")
 	public ResponseEntity<UserResponse> removeUser( @PathVariable("userId")String uid){
 //		 this.userService.deleteUser(uid);
-//		UserResponse response;
+//		UserResponse response = AllUserResponse
 //		response.setCode(TCSConstants.CODE_OK);
 //		response.setStatus(TCSConstants.STATUS_OK);
 //		response.setMessage(TCSConstants.USER_DELETED_MSG);
