@@ -1,0 +1,4 @@
+This Project is named as Time Consensus Scheduling.
+It is developed using Angular and JAVA technologies 
+The tools used for the project development are VSCode, Postman, STS-ECLIPSE(Spring boot)
+The Database that is used is MySQL
