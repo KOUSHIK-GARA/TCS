@@ -11,7 +11,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import com.tcs.app.entities.EmailDetails;
+import com.tcs.app.requests.EmailDetails;
 import com.tcs.app.services.EmailService;
 
 @Service

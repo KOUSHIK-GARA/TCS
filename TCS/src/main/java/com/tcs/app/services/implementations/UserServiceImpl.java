@@ -9,8 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.tcs.app.entities.User;
 import com.tcs.app.repositories.UserRepo;
-import com.tcs.app.entities.EmailDetails;
 import com.tcs.app.exceptions.ResourceNotFoundException;
+import com.tcs.app.requests.EmailDetails;
+import com.tcs.app.requests.UserLoginRequest;
 import com.tcs.app.requests.UserRequest;
 import com.tcs.app.services.EmailService;
 import com.tcs.app.services.UserService;
@@ -36,11 +37,11 @@ public class UserServiceImpl implements UserService {
 		String idCode = String.valueOf(code);
 		String memberId="BITS"+idCode;
 		
-		String info = "Hey! " +newUser.getName()+"\n\nThankyou for registering with us \n\n\n\nYour credentials - \n\nusername : "+newUser.getUsername()+" \n\npassword : "+ newUser.getPassword() +" \n\nmemberId : "+ memberId+" \n\n\n\nwe wish you to continue your journey with us";
+		String info = "Hey! " +newUser.getName()+"\n\nThankyou for registering with us :) \n\n\n\nYour credentials - \n\nusername : "+newUser.getUsername()+" \n\npassword : "+ newUser.getPassword() +" \n\nmemberId : "+ memberId+" \n\n\n\nWe wish you to have a pleasant journey with us";
 		String subject = "Thank you for Registering with us !";
 		EmailDetails details = new EmailDetails(newUser.getUsername(), info,subject,null);
 		String result = this.emailService.sendSimpleMail(details);
-		System.out.println(result);
+		//System.out.println(result);
 		user.setUserId(memberId);
 		System.out.println(memberId);
 		User savedUser = this.userRepo.save(user);
@@ -48,6 +49,20 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+	@Override
+	public String loginUser(UserLoginRequest userCredentials) {
+		User user = this.userRepo.findByUsername(userCredentials.getUsername()).orElseThrow(()-> new ResourceNotFoundException("User"," username ",userCredentials.getUsername()));
+		if(! user.getPassword().equals(userCredentials.getPassword())) {
+					return null;
+			}
+			if(! user.getRole().equals(userCredentials.getRole())) {
+							return null;
+						}
+		return user.getUserId();
+	}
+	
+	
+	
 	@Override
 	public UserRequest updateUser(UserRequest modifyUser, String userId) {
 		User user = this.userRepo.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User"," id ",userId));
@@ -91,6 +106,8 @@ public class UserServiceImpl implements UserService {
 		UserRequest userRequest = this.modelMapper.map(user,UserRequest.class);
 		return userRequest;
 	}
+
+	
 	
 	
 	

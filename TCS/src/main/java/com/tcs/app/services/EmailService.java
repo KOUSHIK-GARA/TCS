@@ -1,6 +1,6 @@
 package com.tcs.app.services;
 
-import com.tcs.app.entities.EmailDetails;
+import com.tcs.app.requests.EmailDetails;
 
 public interface EmailService {
 

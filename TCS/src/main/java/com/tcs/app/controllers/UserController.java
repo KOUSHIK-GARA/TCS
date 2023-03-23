@@ -8,8 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.tcs.app.requests.UserLoginRequest;
 import com.tcs.app.requests.UserRequest;
 import com.tcs.app.responses.AllUserResponse;
+import com.tcs.app.responses.UserLoginResponse;
 import com.tcs.app.responses.UserResponse;
 import com.tcs.app.services.UserService;
 import com.tcs.app.utils.TCSConstants;
@@ -30,8 +32,25 @@ public class UserController {
 		response.setMessage(TCSConstants.USER_CREATED_MSG);
 		response.setUser(user);
 		return new ResponseEntity<>(response, HttpStatus.CREATED);		
-		
 	}
+	
+	@PostMapping("/userLogin")
+	public ResponseEntity<UserLoginResponse> userLogin(@RequestBody UserLoginRequest userCredentials){
+		String memberId = this.userService.loginUser(userCredentials);
+		UserLoginResponse response = new UserLoginResponse();
+		//System.out.println(memberId);
+		if(memberId == null) {
+			response.setCode(TCSConstants.CODE_BAD_REQUEST);
+			response.setStatus(TCSConstants.STATUS_BAD_REQUEST);
+			response.setMessage(TCSConstants.INVALID_CREDENTIALS );
+			return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
+		}
+		response.setCode(TCSConstants.CODE_OK);
+		response.setStatus(TCSConstants.STATUS_OK);
+		response.setMessage(TCSConstants.USER_LOGGEDIN_MSG + memberId);
+		return ResponseEntity.ok(response);
+	}
+
 	
 	@PutMapping("/updateUser/{userId}")
 	public ResponseEntity<UserResponse> modifyUser(@RequestBody UserRequest changedUser, @PathVariable("userId")String uid){

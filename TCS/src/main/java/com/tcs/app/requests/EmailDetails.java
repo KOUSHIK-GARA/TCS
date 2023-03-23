@@ -1,4 +1,4 @@
-package com.tcs.app.entities;
+package com.tcs.app.requests;
 
 import lombok.*;
 
